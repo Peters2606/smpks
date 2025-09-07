@@ -1,59 +1,59 @@
 <div>
     @if (session()->has('message'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <span class="block sm:inline">{{ session('message') }}</span>
+        <div class="bg-green-500 text-white px-4 py-3 rounded-lg relative mb-6 shadow-md" role="alert">
+            <span class="block sm:inline font-semibold">{{ session('message') }}</span>
         </div>
     @endif
     @if (session()->has('error'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-            <span class="block sm:inline">{{ session('error') }}</span>
+        <div class="bg-red-500 text-white px-4 py-3 rounded-lg relative mb-6 shadow-md" role="alert">
+            <span class="block sm:inline font-semibold">{{ session('error') }}</span>
         </div>
     @endif
 
-    <div class="mb-4">
-        <input type="text" wire:model.live="search" placeholder="Cari kontrak..." class="form-input rounded-md shadow-sm mt-1 block w-full">
+    <div class="mb-6">
+        <input type="text" wire:model.live="search" placeholder="Cari kontrak..." class="form-input rounded-lg shadow-sm mt-1 block w-full px-4 py-2 border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 transition duration-150 ease-in-out">
     </div>
 
     <div class="overflow-x-auto bg-white rounded-lg shadow-md">
         <table class="min-w-full divide-y divide-gray-200">
-            <thead class="bg-gray-100">
+            <thead class="bg-indigo-600">
                 <tr>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">No. PKS Rekanan</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">No. PKS RS</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Nama Kontrak</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Tarif Tahun</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Admin</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Legal</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Marketing</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">File Pendukung</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Aksi</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">No. PKS Rekanan</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">No. PKS RS</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Nama Kontrak</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Tarif Tahun</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Admin</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Legal</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Marketing</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">File Pendukung</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-white uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 @forelse ($contracts as $contract)
-                    <tr class="hover:bg-gray-50 transition duration-150 ease-in-out">
+                    <tr class="hover:bg-gray-50 transition duration-150 ease-in-out even:bg-gray-50">
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $contract->pks_number_partner }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $contract->pks_number_hospital }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $contract->contract_name }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $contract->tariff_year ?? '-' }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $contract->admin_approved_at ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $contract->admin_approved_at ? 'bg-green-500 text-white' : 'bg-red-500 text-white' }}">
                                 {{ $contract->admin_approved_at ? 'Disetujui' : 'Belum' }}
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $contract->legal_approved_at ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $contract->legal_approved_at ? 'bg-green-500 text-white' : 'bg-red-500 text-white' }}">
                                 {{ $contract->legal_approved_at ? 'Disetujui' : 'Belum' }}
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $contract->marketing_approved_at ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                            <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full {{ $contract->marketing_approved_at ? 'bg-green-500 text-white' : 'bg-red-500 text-white' }}">
                                 {{ $contract->marketing_approved_at ? 'Disetujui' : 'Belum' }}
                             </span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             @forelse ($contract->contractFiles as $file)
-                                <a href="{{ Storage::url($file->file_path) }}" target="_blank" class="text-blue-600 hover:text-blue-900 block">{{ $file->original_name }}</a>
+                                <a href="{{ Storage::url($file->file_path) }}" target="_blank" wire:click="recordFileReview({{ $contract->id }}, '{{ Auth::user()->role }}')" class="text-blue-600 hover:text-blue-800 block underline">{{ $file->original_name }}</a>
                             @empty
                                 -
                             @endforelse
@@ -67,9 +67,9 @@
                             @endphp
 
                             @if (is_null($approvedAt) && in_array($userRole, ['admin', 'legal', 'marketing']))
-                                <button wire:click="approve({{ $contract->id }})" class="text-indigo-600 hover:text-indigo-900 text-xs font-bold">Setujui</button>
+                                <button wire:click="approve({{ $contract->id }})" class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition duration-150 ease-in-out shadow-md">Setujui</button>
                             @elseif ($approvedAt && $canRevert && in_array($userRole, ['admin', 'legal', 'marketing']))
-                                <button wire:click="revertApproval({{ $contract->id }})" class="text-red-600 hover:text-red-900 text-xs font-bold">Batalkan Persetujuan</button>
+                                <button wire:click="revertApproval({{ $contract->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg text-xs transition duration-150 ease-in-out shadow-md">Batalkan Persetujuan</button>
                             @else
                                 <span class="text-gray-500 text-xs">Sudah Disetujui / Tidak Ada Izin</span>
                             @endif

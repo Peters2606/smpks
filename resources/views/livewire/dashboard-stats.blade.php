@@ -1,21 +1,25 @@
 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-    <div class="bg-white rounded-xl shadow-md p-6 text-center transform hover:scale-105 transition duration-300">
-        <h3 class="text-lg font-semibold text-gray-700">Total Kontrak</h3>
-        <p class="mt-2 text-4xl font-extrabold text-gray-900">{{ $totalContracts }}</p>
+    {{-- Total Kontrak --}}
+    <div class="bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition duration-300">
+        <h3 class="text-xl font-bold text-white">Total Kontrak</h3>
+        <p class="mt-2 text-5xl font-extrabold text-white">{{ $totalContracts }}</p>
     </div>
 
-    <div class="bg-white rounded-xl shadow-md p-6 text-center transform hover:scale-105 transition duration-300">
-        <h3 class="text-lg font-semibold text-gray-700">Kontrak Aktif</h3>
-        <p class="mt-2 text-4xl font-extrabold text-green-600">{{ $activeContracts }}</p>
+    {{-- Kontrak Aktif --}}
+    <div class="bg-gradient-to-br from-green-500 to-green-700 rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition duration-300">
+        <h3 class="text-xl font-bold text-white">Kontrak Aktif</h3>
+        <p class="mt-2 text-5xl font-extrabold text-white">{{ $activeContracts }}</p>
     </div>
 
-    <div class="bg-white rounded-xl shadow-md p-6 text-center transform hover:scale-105 transition duration-300">
-        <h3 class="text-lg font-semibold text-gray-700">Segera Habis</h3>
-        <p class="mt-2 text-4xl font-extrabold text-orange-500">{{ $expiringSoonContracts }}</p>
+    {{-- Segera Habis --}}
+    <div class="bg-gradient-to-br from-orange-500 to-orange-700 rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition duration-300">
+        <h3 class="text-xl font-bold text-white">Segera Habis</h3>
+        <p class="mt-2 text-5xl font-extrabold text-white">{{ $expiringSoonContracts }}</p>
     </div>
 
-    <div class="bg-white rounded-xl shadow-md p-6 text-center transform hover:scale-105 transition duration-300">
-        <h3 class="text-lg font-semibold text-gray-700">Kontrak Habis</h3>
-        <p class="mt-2 text-4xl font-extrabold text-red-600">{{ $expiredContracts }}</p>
+    {{-- Kontrak Habis --}}
+    <div class="bg-gradient-to-br from-red-500 to-red-700 rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition duration-300">
+        <h3 class="text-xl font-bold text-white">Kontrak Habis</h3>
+        <p class="mt-2 text-5xl font-extrabold text-white">{{ $expiredContracts }}</p>
     </div>
 </div>

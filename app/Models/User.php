@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // Added 'role' to fillable attributes
     ];
 
     /**
@@ -44,5 +45,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function scopeSearch($query, $value)
+    {
+        return $query->where('name', 'like', '%'.$value.'%')
+                     ->orWhere('email', 'like', '%'.$value.'%');
     }
 }

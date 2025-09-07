@@ -18,6 +18,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/mailbox', [MailboxController::class, 'index'])->name('mailbox.index');
 
+    Route::get('/contracts/history', function () {
+        return view('contracts.history');
+    })->name('contracts.history');
+
     // Contract resource routes (index, create, store, edit, update, destroy)
     Route::resource('contracts', ContractController::class);
 
@@ -25,6 +29,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/users', function () {
+        return view('admin.users.index');
+    })->name('admin.users.index');
 });
 
 require __DIR__.'/auth.php';

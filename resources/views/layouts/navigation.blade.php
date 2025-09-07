@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-indigo-600 shadow-md">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,38 +6,44 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <x-application-logo class="block h-9 w-auto fill-current text-white" />
                     </a>
                 </div>
 
                 <!-- DEBUG LINE -->
-                <div style="color: red; font-weight: bold;">DEBUG ROLE: {{ Auth::user()->role ?? 'NOT LOGGED IN' }}</div>
+                
                 <!-- END DEBUG LINE -->
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-indigo-100 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     @if (Auth::user()->role === 'admin')
-                        <x-nav-link :href="route('contracts.create')" :active="request()->routeIs('contracts.create')">
+                        <x-nav-link :href="route('contracts.create')" :active="request()->routeIs('contracts.create')" class="text-indigo-100 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
                             {{ __('Tambah Kontrak') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')" class="text-indigo-100 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
+                            {{ __('Manajemen Pengguna') }}
+                        </x-nav-link>
                     @endif
-                    <x-nav-link :href="route('approvals.index')" :active="request()->routeIs('approvals.index')">
+                    <x-nav-link :href="route('approvals.index')" :active="request()->routeIs('approvals.index')" class="text-indigo-100 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
                         {{ __('Persetujuan Kontrak') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('mailbox.index')" :active="request()->routeIs('mailbox.index')">
+                    <x-nav-link :href="route('mailbox.index')" :active="request()->routeIs('mailbox.index')" class="text-indigo-100 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
                         {{ __('Kotak Surat') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('contracts.history')" :active="request()->routeIs('contracts.history')" class="text-indigo-100 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
+                        {{ __('Riwayat Kontrak') }}
                     </x-nav-link>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
+                <x-dropdown align="right" width="48" contentClasses="py-1 bg-white rounded-lg shadow-xl">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-100 bg-indigo-600 hover:text-white hover:bg-indigo-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
@@ -69,7 +75,7 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-indigo-200 hover:text-white hover:bg-indigo-700 focus:outline-none focus:bg-indigo-700 focus:text-white transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -82,19 +88,25 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-indigo-300 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             @if (Auth::user()->role === 'admin')
-                <x-responsive-nav-link :href="route('contracts.create')" :active="request()->routeIs('contracts.create')">
+                <x-responsive-nav-link :href="route('contracts.create')" :active="request()->routeIs('contracts.create')" class="text-indigo-300 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
                     {{ __('Tambah Kontrak') }}
                 </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')" class="text-indigo-300 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
+                    {{ __('Manajemen Pengguna') }}
+                </x-responsive-nav-link>
             @endif
-            <x-responsive-nav-link :href="route('approvals.index')" :active="request()->routeIs('approvals.index')">
+            <x-responsive-nav-link :href="route('approvals.index')" :active="request()->routeIs('approvals.index')" class="text-indigo-300 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
                 {{ __('Persetujuan Kontrak') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('mailbox.index')" :active="request()->routeIs('mailbox.index')">
+            <x-responsive-nav-link :href="route('mailbox.index')" :active="request()->routeIs('mailbox.index')" class="text-indigo-300 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
                 {{ __('Kotak Surat') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('contracts.history')" :active="request()->routeIs('contracts.history')" class="text-indigo-300 hover:text-white hover:bg-indigo-700 focus:text-white focus:bg-indigo-700">
+                {{ __('Riwayat Kontrak') }}
             </x-responsive-nav-link>
         </div>
 

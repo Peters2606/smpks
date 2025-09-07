@@ -35,7 +35,20 @@ class ApprovalTable extends Component
         }
 
         $contract->update([$approvalField => now()]);
-        session()->flash('message', 'Kontrak berhasil disetujui oleh ' . ucfirst($userRole) . '.');
+
+        // Check if it's a new contract and all approvals are complete
+        if ($contract->is_new_contract &&
+            $contract->admin_approved_at !== null &&
+            $contract->legal_approved_at !== null &&
+            $contract->marketing_approved_at !== null &&
+            $contract->active_at === null // Only set if not already active
+        ) {
+            $contract->update(['active_at' => now()]);
+            session()->flash('message', 'Kontrak berhasil disetujui dan diaktifkan oleh ' . ucfirst($userRole) . '.');
+        } else {
+            session()->flash('message', 'Kontrak berhasil disetujui oleh ' . ucfirst($userRole) . '.');
+        }
+        return redirect()->route('approvals.index'); // Redirect to refresh page and show flash message
     }
 
     public function revertApproval($contractId)
@@ -65,8 +78,40 @@ class ApprovalTable extends Component
 
         $contract->update([$approvalField => null]);
         session()->flash('message', 'Persetujuan berhasil dibatalkan oleh ' . ucfirst($userRole) . '.');
+        return redirect()->route('approvals.index'); // Redirect to refresh page and show flash message
     }
 
+    public function recordFileReview($contractId, $role)
+    {
+        // Ensure user is authenticated
+        if (!Auth::check()) {
+            \Log::warning('Attempt to record file review by unauthenticated user.');
+            return;
+        }
+
+        $contract = Contract::find($contractId);
+        if (!$contract) {
+            \Log::warning('Contract not found for review recording. Contract ID: ' . $contractId);
+            return;
+        }
+
+        $userRole = Auth::user()->role;
+        \Log::info('User Role: ' . $userRole . ', Expected Role: ' . $role);
+
+        // Ensure the user has the correct role to record the review
+        if ($userRole !== $role) {
+            \Log::warning('Unauthorized attempt to record file review. User Role: ' . $userRole . ', Expected Role: ' . $role);
+            return;
+        }
+
+        $reviewedField = "{$role}_reviewed_at";
+
+        $contract->update([$reviewedField => now()]);
+        \Log::info('File review recorded (or re-recorded) for Contract ID: ' . $contractId . ' by ' . $userRole);
+        // session()->flash('message', 'File review recorded for ' . ucfirst($userRole) . '.');
+    }
+
+    #[On('refreshComponent')]
     public function render()
     {
         $contracts = Contract::query()

@@ -87,6 +87,11 @@ class ContractForm extends Component
             $contract->update($data);
             session()->flash('message', 'Kontrak berhasil diperbarui.');
         } else {
+            // For new contracts, active_at is set in ApprovalTable after all approvals
+            // For old contracts, active_at is set immediately upon creation
+            if (!$this->is_new_contract) {
+                $data['active_at'] = now(); // Set active_at to now for old contracts
+            }
             $contract = Contract::create($data);
             session()->flash('message', 'Kontrak berhasil ditambahkan.');
         }

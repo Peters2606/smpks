@@ -19,6 +19,9 @@ class Contract extends Model
         'admin_approved_at' => 'datetime',
         'legal_approved_at' => 'datetime',
         'marketing_approved_at' => 'datetime',
+        'active_at' => 'datetime', // Added
+        'legal_reviewed_at' => 'datetime', // Added
+        'marketing_reviewed_at' => 'datetime', // Added
     ];
 
     public function user(): BelongsTo
