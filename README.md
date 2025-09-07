@@ -1,86 +1,108 @@
-# SMPKS - Sistem Manajemen Persetujuan Kontrak
+![Laravel](https://upload.wikimedia.org/wikipedia/commons/9/9a/Laravel.svg)
+![Tailwind CSS](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/85px-Tailwind_CSS_Logo.svg.png)
+<img src="https://icon.icepanel.io/Technology/png-shadow-512/Composer.png" alt="Composer Logo" width="85"/>
+<img src="https://icon.icepanel.io/Technology/svg/MySQL.svg" alt="Mysql Logo" width="85"/>
+<img src="https://icon.icepanel.io/Technology/svg/Livewire.svg" alt="Livewire Logo" width="85"/>
 
-## Deskripsi Proyek
+# ✨ SMPKS - Sistem Manajemen Persetujuan Kontrak
 
-SMPKS adalah sebuah aplikasi web yang dirancang untuk mempermudah dan mengotomatisasi proses manajemen dan persetujuan kontrak. Sistem ini menyediakan platform terpusat bagi berbagai departemen (Admin, Legal, Marketing) untuk mengelola siklus hidup kontrak, mulai dari pembuatan, pengajuan persetujuan, hingga pemantauan riwayat dan status kontrak. Tujuan utama SMPKS adalah meningkatkan efisiensi, transparansi, dan akuntabilitas dalam alur kerja persetujuan kontrak, mengurangi keterlambatan, dan meminimalkan kesalahan manual.
+Sistem Manajemen Persetujuan Kontrak (SMPKS) adalah aplikasi web inovatif yang dirancang untuk merampingkan dan mengotomatisasi seluruh siklus hidup persetujuan kontrak. Dibuat sebagai proyek **Capstone** oleh Kelompok 39 Program Studi Teknik Informatika, Universitas Methodist Indonesia tahun 2022. SMPKS berfokus pada peningkatan **efisiensi**, **transparansi**, dan **akuntabilitas** dalam alur kerja persetujuan kontrak.
 
-## Tujuan
+-----
 
-*   **Efisiensi:** Mengurangi waktu dan upaya yang dibutuhkan dalam proses persetujuan kontrak.
-*   **Transparansi:** Menyediakan visibilitas penuh terhadap status dan riwayat setiap kontrak.
-*   **Akuntabilitas:** Memastikan setiap langkah persetujuan tercatat dengan jelas oleh pihak yang bertanggung jawab.
-*   **Manajemen Data Terpusat:** Menyimpan semua informasi kontrak dan file pendukung di satu lokasi yang aman dan mudah diakses.
+## 🎯 Tujuan Proyek
 
-## Fitur Utama
+Proyek ini dibuat untuk menjawab tantangan dalam manajemen kontrak manual, dengan empat tujuan utama:
 
-*   **Manajemen Kontrak:**
-    *   **Tambah Kontrak Baru:** Formulir intuitif untuk memasukkan detail kontrak, termasuk nomor PKS, nama kontrak, tanggal mulai/berakhir, dan tahun tarif.
-    *   **Upload File Pendukung:** Kemampuan untuk mengunggah file terkait kontrak (PDF, DOC, DOCX) sebagai lampiran.
-    *   **Daftar Kontrak:** Tampilan tabel yang komprehensif untuk melihat semua kontrak, dilengkapi dengan fitur pencarian dan filter berdasarkan tahun tarif.
-*   **Alur Persetujuan Berbasis Peran:**
-    *   **Persetujuan Bertahap:** Kontrak baru memerlukan persetujuan dari Admin, Legal, dan Marketing.
-    *   **Pembatalan Persetujuan:** Kemampuan untuk membatalkan persetujuan dalam jangka waktu tertentu (misal: 20 menit) setelah disetujui.
-    *   **Pencatatan Review File:** Otomatis mencatat waktu review oleh Legal atau Marketing saat file pendukung diakses.
-*   **Manajemen Pengguna (Admin Only):**
-    *   **Pendaftaran Pengguna:** Hanya admin yang dapat mendaftarkan pengguna baru dan menetapkan peran (Admin, Legal, Marketing).
-    *   **Daftar Pengguna:** Tampilan tabel untuk mengelola daftar pengguna yang terdaftar dalam sistem.
-*   **Dashboard Interaktif:**
-    *   Menampilkan statistik kunci terkait kontrak (total kontrak, kontrak aktif, kontrak segera habis, kontrak kontrak habis).
-    *   Memberikan gambaran umum status kontrak secara visual.
-*   **Kotak Surat Kontrak:**
-    *   Menampilkan daftar kontrak yang akan segera berakhir dalam periode tertentu (30, 60, atau 90 hari).
-    *   Membantu dalam pemantauan kontrak yang memerlukan perhatian segera.
-*   **Riwayat Kontrak:**
-    *   Tampilan detail yang menunjukkan linimasa persetujuan kontrak, termasuk kapan kontrak dibuat, aktif, direview oleh Legal/Marketing, dan disetujui oleh masing-masing peran.
+  * **Efisiensi:** Mengurangi waktu dan upaya yang dibutuhkan dalam proses persetujuan kontrak yang berbelit-belit.
+  * **Transparansi:** Menyediakan visibilitas penuh terhadap status dan riwayat setiap kontrak secara *real-time*.
+  * **Akuntabilitas:** Memastikan setiap langkah persetujuan tercatat dengan jelas, dengan pihak yang bertanggung jawab teridentifikasi.
+  * **Manajemen Data Terpusat:** Menyimpan semua informasi dan dokumen kontrak di satu lokasi yang aman dan mudah diakses.
 
-## Teknologi yang Digunakan
+-----
 
-Proyek ini dibangun menggunakan teknologi-teknologi modern untuk memastikan kinerja, skalabilitas, dan kemudahan pengembangan:
+## 🚀 Fitur Unggulan
 
-*   **Framework:** Laravel 12
-*   **Bahasa Pemrograman:** PHP 8.3.24
-*   **Manajemen Dependensi PHP:** Composer 2.8.10
-*   **Frontend Interaktivitas:** Livewire (untuk komponen UI dinamis)
-*   **Styling:** Tailwind CSS (untuk desain antarmuka yang cepat dan responsif)
-*   **Database:** MySQL (atau database relasional lainnya yang didukung Laravel)
+SMPKS dilengkapi dengan serangkaian fitur canggih untuk mengelola kontrak secara komprehensif:
 
-## Instalasi dan Setup
+  * ### **Manajemen Kontrak** 📑
 
-Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
+      * **Tambah Kontrak Baru:** Formulir yang mudah digunakan untuk memasukkan detail kontrak.
+      * **Upload File Pendukung:** Lampirkan dokumen terkait (PDF, DOCX) langsung ke dalam sistem.
+      * **Daftar Kontrak:** Tampilan tabel yang dilengkapi fitur pencarian dan filter berdasarkan tahun.
+
+  * ### **Alur Persetujuan Fleksibel** ✅
+
+      * **Persetujuan Bertahap:** Kontrak melewati alur persetujuan bertahap oleh **Admin**, **Legal**, dan **Marketing**.
+      * **Pembatalan Persetujuan:** Opsi untuk membatalkan persetujuan dalam periode waktu yang ditentukan.
+      * **Pencatatan Riwayat:** Sistem secara otomatis mencatat waktu review dan persetujuan oleh setiap peran.
+
+  * ### **Pengelolaan Pengguna** 🧑‍💼 (Khusus Admin)
+
+      * **Pendaftaran Pengguna:** Hanya Admin yang dapat menambahkan pengguna baru dan menetapkan peran mereka.
+      * **Daftar Pengguna:** Tampilan untuk mengelola pengguna yang terdaftar di sistem.
+
+  * ### **Dashboard Interaktif** 📊
+
+      * Menampilkan visualisasi statistik kontrak secara menyeluruh *(total kontrak, kontrak aktif, kontrak segera habis, kontrak habis)*.
+
+  * ### **Kotak Surat Kontrak** 📬
+
+      * Memberi peringatan dini untuk kontrak yang akan segera berakhir dalam 30, 60, atau 90 hari, membantu tim Anda tetap proaktif.
+
+  * ### **Riwayat Kontrak Terperinci** 📜
+
+      * Melihat linimasa lengkap dari setiap kontrak, dari pembuatan hingga persetujuan akhir.
+
+-----
+
+## 🛠️ Teknologi yang Digunakan
+
+Proyek ini dibangun menggunakan kombinasi teknologi modern untuk performa dan skalabilitas:
+
+  * **Framework:** Laravel 12
+  * **Bahasa Pemrograman:** PHP 8.3.24
+  * **Manajemen Dependensi:** Composer 2.8.10
+  * **Interaktivitas Frontend:** Livewire (untuk komponen UI yang dinamis)
+  * **Styling:** Tailwind CSS (untuk desain antarmuka yang cepat dan responsif)
+  * **Database:** MySQL
+
+-----
+
+## ⚙️ Instalasi dan Setup
+
+Ikuti langkah-langkah di bawah ini untuk menjalankan proyek secara lokal:
 
 1.  **Clone repositori:**
     ```bash
     git clone [URL_REPOSITORI_ANDA]
     cd SMPKS
     ```
-2.  **Instal dependensi Composer:**
+2.  **Instal dependensi PHP:**
     ```bash
     composer install
     ```
-3.  **Salin file `.env`:**
+3.  **Salin file `.env` dan buat kunci aplikasi:**
     ```bash
     cp .env.example .env
-    ```
-4.  **Buat kunci aplikasi:**
-    ```bash
     php artisan key:generate
     ```
-5.  **Konfigurasi database:**
-    Edit file `.env` dan atur kredensial database Anda.
-6.  **Jalankan migrasi database:**
+4.  **Konfigurasi database:**
+    Edit file `.env` dan isi detail koneksi database Anda.
+5.  **Jalankan migrasi database:**
     ```bash
     php artisan migrate
     ```
-7.  **Buat symbolic link untuk storage:**
+6.  **Buat symbolic link untuk storage:**
     ```bash
     php artisan storage:link
     ```
-8.  **Jalankan server pengembangan:**
+7.  **Jalankan server pengembangan:**
     ```bash
     php artisan serve
     ```
     Aplikasi akan tersedia di `http://127.0.0.1:8000`.
 
----
+-----
 
 **Catatan:** Pastikan Anda memiliki PHP 8.3.24+, Composer 2.8.10+, dan Node.js/NPM terinstal di sistem Anda.
