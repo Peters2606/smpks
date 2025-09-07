@@ -22,7 +22,8 @@ class ContractForm extends Component
     public $end_date;
     public $is_new_contract = true;
     public $tariff_year; // Add this property
-    public $files = [];
+    public $newUploads = [];
+    public $allFiles = [];
     public $existingFiles = []; // To display and manage already uploaded files
 
     protected $rules = [
@@ -33,7 +34,7 @@ class ContractForm extends Component
         'end_date' => 'required|string',
         'is_new_contract' => 'boolean',
         'tariff_year' => 'nullable|integer|min:1900|max:2100', // Add validation rule
-        'files.*' => 'nullable|file|mimes:pdf,doc,docx|max:10240', // 10MB max per file
+        'allFiles.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240', // 10MB max per file, including Excel
     ];
 
     public function mount($contract = null)
@@ -50,6 +51,16 @@ class ContractForm extends Component
             $this->existingFiles = $contract->contractFiles->toArray();
         }
     }
+
+    public function updatedNewUploads()
+    {
+        foreach ($this->newUploads as $file) {
+            $this->allFiles[] = $file;
+        }
+        $this->newUploads = []; // Clear newUploads after moving them to allFiles
+    }
+
+    
 
     public function save()
     {
@@ -97,7 +108,7 @@ class ContractForm extends Component
         }
 
         // Handle file uploads
-        foreach ($this->files as $file) {
+        foreach ($this->allFiles as $file) {
             $path = $file->store('contract_files', 'public'); // Store in storage/app/public/contract_files
             $contract->contractFiles()->create([
                 'file_path' => $path,
@@ -105,7 +116,7 @@ class ContractForm extends Component
             ]);
         }
 
-        $this->files = []; // Clear uploaded files after saving
+        $this->allFiles = []; // Clear uploaded files after saving
 
         return redirect()->route('dashboard'); // Redirect to dashboard after save
     }

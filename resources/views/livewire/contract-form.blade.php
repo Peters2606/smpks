@@ -53,18 +53,30 @@
 
             <div class="md:col-span-2">
                 <label for="files" class="block text-sm font-semibold text-gray-700 mb-2">Upload File Tarif (PDF, DOC, DOCX)</label>
-                <input type="file" id="files" wire:model="files" multiple class="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-700 hover:file:bg-indigo-200 cursor-pointer transition duration-150 ease-in-out">
-                @error('files.*') <span class="text-red-600 text-xs mt-1 block">{{ $message }}</span> @enderror
-                <div wire:loading wire:target="files" class="text-sm text-indigo-600 mt-2 font-medium">Mengunggah file...</div>
+                <input type="file" id="files" wire:model="newUploads" multiple class="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-100 file:text-indigo-700 hover:file:bg-indigo-200 cursor-pointer transition duration-150 ease-in-out">
+                @error('allFiles.*') <span class="text-red-600 text-xs mt-1 block">{{ $message }}</span> @enderror
+                <div wire:loading wire:target="newUploads" class="text-sm text-indigo-600 mt-2 font-medium">Mengunggah file...</div>
+                @if (!empty($allFiles))
+                    <div class="mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <h4 class="text-md font-semibold text-gray-700 mb-3">File yang Dipilih:</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            @foreach ($allFiles as $file)
+                                <li class="text-sm text-gray-700 truncate">{{ $file->getClientOriginalName() }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
 
             @if ($existingFiles)
                 <div class="md:col-span-2 mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
                     <h4 class="text-md font-semibold text-gray-700 mb-3">File yang Sudah Ada:</h4>
                     <ul class="list-disc list-inside space-y-2">
-                        @foreach ($existingFiles as $file)
+                        @foreach ($existingFiles as $index => $file)
                             <li class="text-sm text-gray-700 flex items-center justify-between">
-                                <a href="{{ Storage::url($file['file_path']) }}" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-medium truncate">{{ $file['original_name'] }}</a>
+                                <a href="{{ Storage::url($file['file_path']) }}" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-medium truncate flex items-center">
+                                    <i class="fa-solid fa-eye mr-2"></i> Lihat File {{ $index + 1 }}
+                                </a>
                                 <button type="button" wire:click="deleteFile({{ $file['id'] }})" onclick="return confirm('Apakah Anda yakin ingin menghapus file ini?')" class="ml-4 text-red-600 hover:text-red-800 text-xs font-medium px-3 py-1 rounded-md border border-red-300 hover:bg-red-50 transition duration-150 ease-in-out">Hapus</button>
                             </li>
                         @endforeach
