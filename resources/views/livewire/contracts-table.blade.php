@@ -63,7 +63,19 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                             @forelse ($contract->contractFiles as $file)
-                                <a href="{{ Storage::url($file->file_path) }}" target="_blank" class="text-blue-600 hover:text-blue-800 block underline">{{ $file->original_name }}</a>
+                                @php
+                                $textColorClass = 'text-gray-900'; // Default color for dashboard
+                                if (isset($file->uploaded_by_role)) { // Use -> instead of [''] for object properties
+                                    if ($file->uploaded_by_role === 'legal') {
+                                        $textColorClass = 'text-green-600';
+                                    } elseif ($file->uploaded_by_role === 'marketing') {
+                                        $textColorClass = 'text-red-600';
+                                    } elseif ($file->uploaded_by_role === 'admin') {
+                                        $textColorClass = 'text-blue-600';
+                                    }
+                                }
+                            @endphp
+                                <a href="{{ Storage::url($file->file_path) }}" target="_blank" class="{{ $textColorClass }} hover:text-blue-800 block underline">{{ $file->original_name }}</a>
                             @empty
                                 -
                             @endforelse

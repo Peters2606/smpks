@@ -25,6 +25,7 @@ class ContractForm extends Component
     public $newUploads = [];
     public $allFiles = [];
     public $existingFiles = []; // To display and manage already uploaded files
+    public $disableFields = false;
 
     protected $rules = [
         'pks_number_partner' => 'required|string|max:255',
@@ -34,7 +35,7 @@ class ContractForm extends Component
         'end_date' => 'required|string',
         'is_new_contract' => 'boolean',
         'tariff_year' => 'nullable|integer|min:1900|max:2100', // Add validation rule
-        'allFiles.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240', // 10MB max per file, including Excel
+        'newUploads.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:20971520', // 20MB
     ];
 
     public function mount($contract = null)
@@ -49,6 +50,19 @@ class ContractForm extends Component
             $this->is_new_contract = $contract->is_new_contract;
             $this->tariff_year = $contract->tariff_year; // Load tariff_year
             $this->existingFiles = $contract->contractFiles->toArray();
+
+            // Check if fields should be disabled
+            $user = Auth::user();
+            if ($this->contractId && in_array($user->role, ['legal', 'marketing'])) {
+                $isPending = $contract->is_new_contract && (
+                    is_null($contract->admin_approved_at) ||
+                    is_null($contract->legal_approved_at) ||
+                    is_null($contract->marketing_approved_at)
+                );
+                if ($isPending) {
+                    $this->disableFields = true;
+                }
+            }
         }
     }
 
@@ -64,7 +78,11 @@ class ContractForm extends Component
 
     public function save()
     {
-        $this->validate();
+        if ($this->disableFields) {
+            $this->validateOnly('newUploads.*');
+        } else {
+            $this->validate();
+        }
 
         // Manually validate date format and convert to Carbon instances
         try {
@@ -95,7 +113,10 @@ class ContractForm extends Component
 
         if ($this->contractId) {
             $contract = Contract::find($this->contractId);
-            $contract->update($data);
+            // Only update if not disabled
+            if (!$this->disableFields) {
+                $contract->update($data);
+            }
             session()->flash('message', 'Kontrak berhasil diperbarui.');
         } else {
             // For new contracts, active_at is set in ApprovalTable after all approvals
@@ -113,6 +134,7 @@ class ContractForm extends Component
             $contract->contractFiles()->create([
                 'file_path' => $path,
                 'original_name' => $file->getClientOriginalName(),
+                'uploaded_by_role' => Auth::user()->role, // Save the role of the uploader
             ]);
         }
 

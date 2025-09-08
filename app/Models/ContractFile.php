@@ -10,5 +10,6 @@ class ContractFile extends Model
         'contract_id',
         'file_path',
         'original_name',
+        'uploaded_by_role',
     ];
 }

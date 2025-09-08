@@ -38,3 +38,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/livewire-config-check', function () {
+    dd(config('livewire.temporary_file_upload'));
+});

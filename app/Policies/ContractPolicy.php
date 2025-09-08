@@ -37,7 +37,25 @@ class ContractPolicy
      */
     public function update(User $user, Contract $contract): bool
     {
-        return $user->role === 'admin'; // Only admin can update
+        // Admin can always update
+        if ($user->role === 'admin') {
+            return true;
+        }
+
+        // Legal and Marketing can update if the contract is new and pending approval
+        if (in_array($user->role, ['legal', 'marketing'])) {
+            // A contract is 'Pending' if it's a new contract and any of the required approvals are null
+            $isPending = $contract->is_new_contract && (
+                is_null($contract->admin_approved_at) ||
+                is_null($contract->legal_approved_at) ||
+                is_null($contract->marketing_approved_at)
+            );
+
+            return $isPending;
+        }
+
+        // Other roles cannot update
+        return false;
     }
 
     /**
